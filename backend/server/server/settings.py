@@ -27,12 +27,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-5x0kq#4=gw-yzv
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('true', '1', 'yes')
 
 # Allowed hosts configuration
-ALLOWED_HOSTS_ENV = os.environ.get('DJANGO_ALLOWED_HOSTS', '')
-ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_ENV.split(',') if host.strip()] if ALLOWED_HOSTS_ENV else []
+ALLOWED_HOSTS = ['*']
 
-# Add localhost for development
-if DEBUG:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
 
 
 # Application definition
@@ -125,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
@@ -135,12 +131,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://portfolio-silk-phi-22.vercel.app/",
+    "https://portfolio-silk-phi-22.vercel.app"
 ]
-
-# Add production frontend URL from environment
-CORS_FRONTEND_URL = os.environ.get('CORS_FRONTEND_URL', '')
-if CORS_FRONTEND_URL:
-    CORS_ALLOWED_ORIGINS.append(CORS_FRONTEND_URL)
 
 CORS_ALLOW_CREDENTIALS = True
 
