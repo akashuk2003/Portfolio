@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { fetchProfile } from "@/lib/api";
 
 const navLinks = [
   { href: "#tech", label: "Tech Stack" },
@@ -13,6 +15,14 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const { data: profile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: fetchProfile,
+  });
+
+  // Extract name for logo display (first name or full name)
+  const displayName = profile?.name?.split(' ')[0]?.toLowerCase() || 'alex';
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -23,18 +33,17 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "py-4 bg-background/80 backdrop-blur-lg border-b border-border"
           : "py-6 bg-transparent"
-      }`}
+        }`}
     >
       <div className="container px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="font-mono text-lg font-bold">
             <span className="text-primary">&lt;</span>
-            <span className="text-foreground">alex</span>
+            <span className="text-foreground">{displayName}</span>
             <span className="text-primary">/&gt;</span>
           </a>
 

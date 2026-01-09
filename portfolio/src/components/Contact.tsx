@@ -1,7 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Mail, Send, MapPin, Calendar } from "lucide-react";
+import { fetchProfile } from "@/lib/api";
 
 const Contact = () => {
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ['profile'],
+    queryFn: fetchProfile,
+  });
+
+  if (isLoading) {
+    return (
+      <section id="contact" className="py-24 relative">
+        <div className="container relative z-10 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="animate-pulse text-muted-foreground">Loading...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="contact" className="py-24 relative">
       <div className="container relative z-10 px-4">
@@ -15,7 +34,7 @@ const Contact = () => {
               Got a Project in Mind?
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              I'm always interested in hearing about new opportunities, 
+              I'm always interested in hearing about new opportunities,
               challenging projects, or just chatting about tech.
             </p>
           </div>
@@ -24,7 +43,7 @@ const Contact = () => {
           <div className="relative p-8 md:p-12 rounded-2xl bg-card border border-border border-glow overflow-hidden">
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-            
+
             <div className="relative z-10">
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 {/* Contact info */}
@@ -35,8 +54,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <a href="mailto:alex@example.com" className="text-muted-foreground hover:text-primary transition-colors">
-                        alex@example.com
+                      <a href={`mailto:${profile?.email || 'alex@example.com'}`} className="text-muted-foreground hover:text-primary transition-colors">
+                        {profile?.email || 'alex@example.com'}
                       </a>
                     </div>
                   </div>
@@ -48,7 +67,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Location</h3>
                       <p className="text-muted-foreground">
-                        San Francisco, CA (Remote OK)
+                        {profile?.location || 'San Francisco, CA (Remote OK)'}
                       </p>
                     </div>
                   </div>
@@ -60,7 +79,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Availability</h3>
                       <p className="text-muted-foreground">
-                        Open for freelance & full-time roles
+                        {profile?.availability_message || 'Open for freelance & full-time roles'}
                       </p>
                     </div>
                   </div>
@@ -90,7 +109,7 @@ const Contact = () => {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <a href="mailto:alex@example.com">
+                  <a href={`mailto:${profile?.email || 'alex@example.com'}`}>
                     <Send className="w-4 h-4 mr-2" />
                     Send a Message
                   </a>

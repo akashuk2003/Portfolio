@@ -1,39 +1,35 @@
+import { useQuery } from "@tanstack/react-query";
 import { Database, Server, Cloud, Terminal, Cog, Shield } from "lucide-react";
+import { fetchTechStack } from "@/lib/api";
+import type { TechCategory } from "@/lib/types";
 
-const techCategories = [
-  {
-    title: "Languages",
-    icon: Terminal,
-    items: ["Python", "Go", "TypeScript", "Rust", "Java"],
-  },
-  {
-    title: "Frameworks",
-    icon: Server,
-    items: ["FastAPI", "Django", "Express", "Gin", "Spring Boot"],
-  },
-  {
-    title: "Databases",
-    icon: Database,
-    items: ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Cassandra"],
-  },
-  {
-    title: "Cloud & DevOps",
-    icon: Cloud,
-    items: ["AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
-  },
-  {
-    title: "Architecture",
-    icon: Cog,
-    items: ["Microservices", "REST APIs", "GraphQL", "gRPC", "Event-Driven"],
-  },
-  {
-    title: "Security",
-    icon: Shield,
-    items: ["OAuth 2.0", "JWT", "RBAC", "Encryption", "Penetration Testing"],
-  },
-];
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Terminal,
+  Server,
+  Database,
+  Cloud,
+  Cog,
+  Shield,
+};
 
 const TechStack = () => {
+  const { data: techCategories, isLoading } = useQuery({
+    queryKey: ['techStack'],
+    queryFn: fetchTechStack,
+  });
+
+  if (isLoading) {
+    return (
+      <section id="tech" className="py-24 relative">
+        <div className="container relative z-10 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="animate-pulse text-muted-foreground">Loading tech stack...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="tech" className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/50 to-transparent" />
@@ -55,30 +51,33 @@ const TechStack = () => {
 
           {/* Tech grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {techCategories.map((category, index) => (
-              <div
-                key={category.title}
-                className="group p-6 rounded-xl bg-card border border-border card-hover"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                    <category.icon className="w-5 h-5" />
+            {techCategories?.map((category: TechCategory, index: number) => {
+              const Icon = iconMap[category.icon] || Terminal;
+              return (
+                <div
+                  key={category.id}
+                  className="group p-6 rounded-xl bg-card border border-border card-hover"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-semibold text-lg">{category.title}</h3>
                   </div>
-                  <h3 className="font-semibold text-lg">{category.title}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {category.items.map((item: string) => (
+                      <span
+                        key={item}
+                        className="px-3 py-1 rounded-full text-sm font-mono bg-secondary text-secondary-foreground border border-border hover:border-primary/50 transition-colors cursor-default"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1 rounded-full text-sm font-mono bg-secondary text-secondary-foreground border border-border hover:border-primary/50 transition-colors cursor-default"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="text-center mt-16">
