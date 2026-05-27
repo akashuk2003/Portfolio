@@ -44,30 +44,30 @@ const Hero = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-terminal-green animate-pulse" />
             <span className="font-mono text-sm text-muted-foreground">
-              {profile?.availability_status || "Available for new opportunities"}
+              {profile?.availability_status}
             </span>
           </div>
 
           {/* Main heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <span className="text-foreground">Hi, I'm </span>
-            <span className="text-gradient-primary">{profile?.name || "Alex Chen"}</span>
+            <span className="text-gradient-primary">{profile?.name}</span>
           </h1>
 
           {/* Terminal command style subtitle */}
           <div className="font-mono text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <span className="text-primary">$</span> {profile?.title || "backend_developer"}
+            <span className="text-primary">$</span> {profile?.title}
             <span className="text-syntax-yellow">.</span>
             <span className="text-syntax-pink">build</span>
             <span className="text-muted-foreground">(</span>
-            <span className="text-terminal-green">"{profile?.tagline || "scalable systems"}"</span>
+            <span className="text-terminal-green">"{profile?.tagline}"</span>
             <span className="text-muted-foreground">)</span>
             <span className="inline-block w-2 h-5 bg-primary ml-1 animate-blink" />
           </div>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 animate-fade-in text-balance" style={{ animationDelay: "0.3s" }}>
-            {profile?.description || "I architect robust APIs, optimize databases, and build distributed systems that handle millions of requests. Passionate about clean code and system design."}
+            {profile?.description}
           </p>
 
           {/* CTA Buttons */}

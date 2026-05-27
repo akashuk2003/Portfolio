@@ -54,8 +54,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <a href={`mailto:${profile?.email || 'alex@example.com'}`} className="text-muted-foreground hover:text-primary transition-colors">
-                        {profile?.email || 'alex@example.com'}
+                      <a href={`mailto:${profile?.email}`} className="text-muted-foreground hover:text-primary transition-colors">
+                        {profile?.email}
                       </a>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Location</h3>
                       <p className="text-muted-foreground">
-                        {profile?.location || 'San Francisco, CA (Remote OK)'}
+                        {profile?.location}
                       </p>
                     </div>
                   </div>
@@ -79,7 +79,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Availability</h3>
                       <p className="text-muted-foreground">
-                        {profile?.availability_message || 'Open for freelance & full-time roles'}
+                        {profile?.availability_message}
                       </p>
                     </div>
                   </div>
@@ -109,7 +109,7 @@ const Contact = () => {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <a href={`mailto:${profile?.email || 'alex@example.com'}`}>
+                  <a href={`mailto:${profile?.email}`}>
                     <Send className="w-4 h-4 mr-2" />
                     Send a Message
                   </a>

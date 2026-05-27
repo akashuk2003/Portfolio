@@ -21,7 +21,7 @@ const Header = () => {
   });
 
   // Extract name for logo display (first name or full name)
-  const displayName = profile?.name?.split(' ')[0]?.toLowerCase() || 'alex';
+  const displayName = profile?.name?.split(' ')[0]?.toLowerCase() ?? null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,9 +42,15 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="font-mono text-lg font-bold">
-            <span className="text-primary">&lt;</span>
-            <span className="text-foreground">{displayName}</span>
-            <span className="text-primary">/&gt;</span>
+            {displayName !== null ? (
+              <>
+                <span className="text-primary">&lt;</span>
+                <span className="text-foreground">{displayName}</span>
+                <span className="text-primary">/&gt;</span>
+              </>
+            ) : (
+              <span className="w-20 h-5 rounded bg-muted animate-pulse inline-block" />
+            )}
           </a>
 
           {/* Desktop Nav */}

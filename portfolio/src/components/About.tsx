@@ -57,11 +57,11 @@ const About = () => {
                 </div>
                 <div className="space-y-1">
                   <p><span className="text-muted-foreground">$</span> <span className="text-primary">whoami</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.whoami || "backend_developer | system_architect"}</p>
+                  <p className="text-muted-foreground pl-2">{profile?.whoami}</p>
                   <p><span className="text-muted-foreground">$</span> <span className="text-primary">location</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.location || "San Francisco, CA (Remote OK)"}</p>
+                  <p className="text-muted-foreground pl-2">{profile?.location}</p>
                   <p><span className="text-muted-foreground">$</span> <span className="text-primary">interests</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.interests || "distributed_systems, performance, open_source"}</p>
+                  <p className="text-muted-foreground pl-2">{profile?.interests}</p>
                 </div>
               </div>
             </div>
