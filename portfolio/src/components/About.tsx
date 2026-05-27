@@ -1,82 +1,126 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProfile, fetchStats } from "@/lib/api";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import type { Stat } from "@/lib/types";
 
 const About = () => {
-  const { data: profile, isLoading: profileLoading } = useQuery({
-    queryKey: ['profile'],
+  const { data: profile, isLoading, isError } = useQuery({
+    queryKey: ["profile"],
     queryFn: fetchProfile,
+    staleTime: 1000 * 60 * 5,
   });
 
-  const { data: stats, isLoading: statsLoading } = useQuery({
-    queryKey: ['stats'],
+  const { data: stats } = useQuery({
+    queryKey: ["stats"],
     queryFn: fetchStats,
+    staleTime: 1000 * 60 * 5,
   });
 
-  if (profileLoading || statsLoading) {
+  const headerRef = useScrollReveal();
+  const leftRef = useScrollReveal({ delay: 100 });
+  const rightRef = useScrollReveal({ delay: 200 });
+
+  if (isLoading) {
     return (
-      <section id="about" className="py-24 relative">
-        <div className="container relative z-10 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="animate-pulse text-muted-foreground">Loading...</div>
+      <section id="about" className="py-28 relative">
+        <div className="container px-4">
+          <div className="max-w-5xl mx-auto space-y-4">
+            <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+            <div className="h-10 w-64 bg-muted rounded animate-pulse" />
+            <div className="grid lg:grid-cols-2 gap-16 mt-10">
+              <div className="space-y-3">
+                <div className="h-4 bg-muted rounded animate-pulse" />
+                <div className="h-4 bg-muted rounded animate-pulse" />
+                <div className="h-4 w-3/4 bg-muted rounded animate-pulse" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {[0, 1, 2, 3].map((i) => (
+                  <div key={i} className="h-28 bg-muted rounded-xl animate-pulse" />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
     );
   }
 
+  if (isError) return null;
+
   return (
-    <section id="about" className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/30 to-transparent" />
+    <section id="about" className="py-28 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/30 to-transparent pointer-events-none" />
 
       <div className="container relative z-10 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left column - Terminal style about */}
-            <div>
-              <span className="font-mono text-primary text-sm mb-4 block">
-                {"$ cat about.md"}
+        <div className="max-w-5xl mx-auto">
+          <div ref={headerRef} className="mb-16">
+            <span className="font-mono text-primary text-xs uppercase tracking-widest mb-4 block">
+              // About me
+            </span>
+            <h2 className="font-heading font-extrabold text-3xl md:text-5xl tracking-tight">
+              Building the Infrastructure{" "}
+              <span className="text-gradient-primary">
+                Behind Great Products
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Building the Infrastructure <br />
-                <span className="text-gradient-primary">Behind Great Products</span>
-              </h2>
+            </h2>
+          </div>
 
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Left — bio + terminal */}
+            <div ref={leftRef}>
+              <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
                 {profile?.bio_paragraph_1 && <p>{profile.bio_paragraph_1}</p>}
                 {profile?.bio_paragraph_2 && <p>{profile.bio_paragraph_2}</p>}
                 {profile?.bio_paragraph_3 && <p>{profile.bio_paragraph_3}</p>}
               </div>
 
-              {/* Terminal-style code block */}
-              <div className="mt-8 p-4 rounded-xl bg-background border border-border font-mono text-sm">
-                <div className="flex items-center gap-2 mb-3 pb-3 border-b border-border">
-                  <div className="w-3 h-3 rounded-full bg-destructive/80" />
-                  <div className="w-3 h-3 rounded-full bg-syntax-yellow" />
-                  <div className="w-3 h-3 rounded-full bg-terminal-green" />
+              {/* Terminal block */}
+              <div className="p-5 rounded-xl bg-background border border-border font-mono text-sm">
+                <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-border">
+                  <div className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber/70" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-accent/70" />
+                  <span className="ml-2 text-xs text-muted-foreground">
+                    profile.sh
+                  </span>
                 </div>
-                <div className="space-y-1">
-                  <p><span className="text-muted-foreground">$</span> <span className="text-primary">whoami</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.whoami}</p>
-                  <p><span className="text-muted-foreground">$</span> <span className="text-primary">location</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.location}</p>
-                  <p><span className="text-muted-foreground">$</span> <span className="text-primary">interests</span></p>
-                  <p className="text-muted-foreground pl-2">{profile?.interests}</p>
+                <div className="space-y-2 text-sm">
+                  <p>
+                    <span className="text-muted-foreground">$</span>{" "}
+                    <span className="text-primary">whoami</span>
+                  </p>
+                  <p className="text-muted-foreground pl-3">
+                    {profile?.whoami}
+                  </p>
+                  <p className="mt-2">
+                    <span className="text-muted-foreground">$</span>{" "}
+                    <span className="text-primary">location</span>
+                  </p>
+                  <p className="text-muted-foreground pl-3">
+                    {profile?.location}
+                  </p>
+                  <p className="mt-2">
+                    <span className="text-muted-foreground">$</span>{" "}
+                    <span className="text-primary">interests</span>
+                  </p>
+                  <p className="text-muted-foreground pl-3">
+                    {profile?.interests}
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Right column - Stats */}
-            <div className="grid grid-cols-2 gap-6">
+            {/* Right — stats grid */}
+            <div ref={rightRef} className="grid grid-cols-2 gap-4">
               {stats?.map((stat: Stat) => (
                 <div
                   key={stat.id}
-                  className="p-6 rounded-2xl bg-card border border-border card-hover text-center"
+                  className="p-6 rounded-2xl bg-card border border-border hover:border-primary/40 hover:glow-primary transition-all duration-300 text-center"
                 >
-                  <div className="text-4xl md:text-5xl font-bold text-gradient-primary mb-2">
+                  <div className="font-heading font-extrabold text-4xl text-gradient-primary mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-muted-foreground font-medium">
+                  <div className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
                     {stat.label}
                   </div>
                 </div>

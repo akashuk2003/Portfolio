@@ -22,7 +22,7 @@ const Footer = () => {
   });
 
   // Extract name for logo display (first name or full name)
-  const displayName = profile?.name?.split(' ')[0]?.toLowerCase() || 'alex';
+  const displayName = profile?.name?.split(' ')[0]?.toLowerCase() ?? null;
 
   return (
     <footer className="py-12 border-t border-border">
@@ -30,10 +30,20 @@ const Footer = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo */}
-            <a href="#" className="font-mono text-lg font-bold">
-              <span className="text-primary">&lt;</span>
-              <span className="text-foreground">{displayName}</span>
-              <span className="text-primary">/&gt;</span>
+            <a href="#" className="font-mono font-bold text-base tracking-tight">
+              {displayName !== null ? (
+                <>
+                  <span className="text-primary">{`{`}</span>
+                  <span className="text-foreground">
+                    {profile?.name
+                      ?.split(" ")
+                      .map((w: string) => w[0])
+                      .join("")
+                      .toLowerCase() ?? displayName}
+                  </span>
+                  <span className="text-primary">{`}`}</span>
+                </>
+              ) : null}
             </a>
 
             {/* Social links */}

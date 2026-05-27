@@ -25,6 +25,11 @@ export interface TechCategory {
     order: number;
 }
 
+export interface OutcomeMetric {
+    label: string;
+    value: string;
+}
+
 export interface Project {
     id: number;
     title: string;
@@ -36,6 +41,11 @@ export interface Project {
     demo_url: string;
     order: number;
     is_featured: boolean;
+    // Case study fields
+    problem_statement: string;
+    technical_highlights: string[];
+    outcome_metrics: OutcomeMetric[];
+    architecture_summary: string;
 }
 
 export interface Stat {
@@ -49,5 +59,18 @@ export interface SocialLink {
     id: number;
     platform: 'github' | 'linkedin' | 'twitter' | 'email';
     url: string;
+    order: number;
+}
+
+export interface Experience {
+    id: number;
+    company: string;
+    role: string;
+    period: string;
+    location: string;
+    description: string;
+    highlights: string[];
+    tech_used: string[];
+    is_current: boolean;
     order: number;
 }

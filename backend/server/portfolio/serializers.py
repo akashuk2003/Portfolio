@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, TechCategory, Project, Stat, SocialLink
+from .models import Profile, TechCategory, Project, Stat, SocialLink, Experience, ContactMessage
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -24,7 +24,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = [
             'id', 'title', 'description', 'tech', 'metrics',
-            'icon', 'github_url', 'demo_url', 'order', 'is_featured'
+            'icon', 'github_url', 'demo_url', 'order', 'is_featured',
+            'problem_statement', 'technical_highlights',
+            'outcome_metrics', 'architecture_summary',
         ]
 
 
@@ -38,3 +40,18 @@ class SocialLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialLink
         fields = ['id', 'platform', 'url', 'order']
+
+
+class ExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Experience
+        fields = [
+            'id', 'company', 'role', 'period', 'location',
+            'description', 'highlights', 'tech_used', 'is_current', 'order'
+        ]
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'subject', 'message']

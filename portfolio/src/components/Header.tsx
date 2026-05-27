@@ -41,15 +41,21 @@ const Header = () => {
       <div className="container px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="font-mono text-lg font-bold">
+          <a href="#" className="flex items-center gap-2">
             {displayName !== null ? (
-              <>
-                <span className="text-primary">&lt;</span>
-                <span className="text-foreground">{displayName}</span>
-                <span className="text-primary">/&gt;</span>
-              </>
+              <span className="font-mono font-bold text-base tracking-tight">
+                <span className="text-primary">{`{`}</span>
+                <span className="text-foreground">
+                  {profile?.name
+                    ?.split(" ")
+                    .map((w: string) => w[0])
+                    .join("")
+                    .toLowerCase() ?? displayName}
+                </span>
+                <span className="text-primary">{`}`}</span>
+              </span>
             ) : (
-              <span className="w-20 h-5 rounded bg-muted animate-pulse inline-block" />
+              <span className="w-10 h-5 rounded bg-muted animate-pulse inline-block" />
             )}
           </a>
 

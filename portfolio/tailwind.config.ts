@@ -2,20 +2,24 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        heading: ["Plus Jakarta Sans", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,13 +55,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        terminal: {
-          green: "hsl(var(--terminal-green))",
-        },
-        syntax: {
-          yellow: "hsl(var(--syntax-yellow))",
-          pink: "hsl(var(--syntax-pink))",
-        },
+        amber: { DEFAULT: "hsl(var(--amber))" },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -74,34 +72,33 @@ export default {
           to: { height: "0" },
         },
         "fade-in": {
-          from: { opacity: "0", transform: "translateY(20px)" },
+          from: { opacity: "0", transform: "translateY(16px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "fade-in-left": {
-          from: { opacity: "0", transform: "translateX(-20px)" },
+          from: { opacity: "0", transform: "translateX(-16px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
-        },
-        "typing": {
-          from: { width: "0" },
-          to: { width: "100%" },
-        },
-        "blink": {
+        blink: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0" },
+        },
+        "count-bar": {
+          from: { width: "0%" },
+          to: { width: "var(--bar-width)" },
+        },
+        shimmer: {
+          from: { backgroundPosition: "-200% 0" },
+          to: { backgroundPosition: "200% 0" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out forwards",
-        "fade-in-left": "fade-in-left 0.6s ease-out forwards",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "typing": "typing 2s steps(30) forwards",
-        "blink": "blink 1s step-end infinite",
+        "fade-in": "fade-in 0.65s ease-out forwards",
+        "fade-in-left": "fade-in-left 0.65s ease-out forwards",
+        blink: "blink 1s step-end infinite",
+        shimmer: "shimmer 2s linear infinite",
       },
     },
   },
