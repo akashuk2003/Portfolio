@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { fetchProfile } from "@/lib/api";
+import { ModeToggle } from "./ModeToggle";
 
 const navLinks = [
   { href: "#tech", label: "Tech Stack" },
@@ -60,28 +61,32 @@ const Header = () => {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button variant="hero" size="sm" asChild>
-              <a href="#contact">Let's Talk</a>
-            </Button>
-          </nav>
+          <div className="flex items-center gap-4 md:gap-8">
+            <nav className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Button variant="hero" size="sm" asChild>
+                <a href="#contact">Let's Talk</a>
+              </Button>
+            </nav>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            <ModeToggle />
+
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Nav */}

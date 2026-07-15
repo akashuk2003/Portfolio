@@ -6,7 +6,45 @@
 
 @layer base {
   :root {
-    /* ── Backgrounds ── */
+    /* ── Light Mode Backgrounds ── */
+    --background: 0 0% 100%;
+    --foreground: 222 24% 5%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 24% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 24% 5%;
+
+    /* ── Light Mode Brand ── */
+    --primary: 210 100% 56%;          /* Electric Blue - keeps brand identity */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 155 65% 43%;            /* Muted Emerald */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* ── Light Mode Structure ── */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 210 100% 56%;
+    --radius: 0.625rem;
+
+    /* ── Extended palette ── */
+    --amber: 38 95% 55%;
+    --surface-raised: 0 0% 98%;
+  }
+
+  .dark {
+    /* ── Dark Mode Backgrounds ── */
     --background: 222 24% 5%;
     --foreground: 213 20% 92%;
 
@@ -16,7 +54,7 @@
     --popover: 222 22% 9%;
     --popover-foreground: 213 20% 92%;
 
-    /* ── Brand ── */
+    /* ── Dark Mode Brand ── */
     --primary: 210 100% 56%;          /* Electric Blue */
     --primary-foreground: 222 24% 5%;
 
@@ -32,7 +70,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    /* ── Structure ── */
+    /* ── Dark Mode Structure ── */
     --border: 222 18% 16%;
     --input: 222 18% 16%;
     --ring: 210 100% 56%;
@@ -41,11 +79,6 @@
     /* ── Extended palette ── */
     --amber: 38 95% 55%;
     --surface-raised: 222 22% 12%;
-  }
-
-  .dark {
-    --background: 222 24% 5%;
-    --foreground: 213 20% 92%;
   }
 }
 
