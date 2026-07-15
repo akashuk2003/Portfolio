@@ -74,20 +74,31 @@ const Hero = () => {
       {/* Animated mesh gradient */}
       <div className="absolute inset-0 hero-mesh-bg" />
 
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.4)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.4)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_40%,black_40%,transparent_100%)]" />
+      {/* Dot grid overlay */}
+      <div className="absolute inset-0 dot-grid" />
+
+      {/* Decorative floating blobs (light mode pop, dark mode subtle) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="animate-float-slow absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/8 blur-3xl" style={{ animationDelay: '0s' }} />
+        <div className="animate-float-slow absolute bottom-0 -left-24 w-[360px] h-[360px] rounded-full bg-accent/6 blur-3xl" style={{ animationDelay: '3s' }} />
+        <div className="animate-float-slow absolute top-1/2 right-1/4 w-[260px] h-[260px] rounded-full bg-amber/5 blur-2xl" style={{ animationDelay: '5s' }} />
+      </div>
 
       <div className="container relative z-10 px-4 pt-24 pb-16">
         <div className="max-w-4xl">
 
           {/* Status badge */}
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border mb-10 transition-all duration-700 ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-10 transition-all duration-700
+              bg-white/70 dark:bg-card backdrop-blur-sm border-primary/20 dark:border-border shadow-sm ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs text-muted-foreground tracking-wider">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+            </span>
+            <span className="font-mono text-xs text-primary dark:text-muted-foreground tracking-wider font-medium">
               {profile?.availability_status}
             </span>
           </div>
@@ -172,11 +183,11 @@ const Hero = () => {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="p-2.5 rounded-lg bg-card border border-border hover:border-primary/50 hover:bg-primary/8 transition-all duration-200"
+                    className="p-2.5 rounded-lg bg-white/80 dark:bg-card border border-border hover:border-primary/40 hover:bg-primary/10 hover:shadow-sm transition-all duration-200 backdrop-blur-sm"
                     title={link.platform}
                   >
                     {Icon && (
-                      <Icon className="w-4 h-4 text-muted-foreground" />
+                      <Icon className="w-4 h-4 text-muted-foreground hover:text-primary transition-colors" />
                     )}
                   </a>
                 );

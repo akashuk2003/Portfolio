@@ -49,10 +49,10 @@ const Contact = () => {
 
           <div
             ref={cardRef}
-            className="relative p-8 md:p-12 rounded-2xl bg-card border border-primary/20 overflow-hidden"
+            className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-sky-50/90 to-white dark:bg-card border border-primary/20 overflow-hidden"
             style={{
               boxShadow:
-                "0 0 60px -20px hsl(var(--primary) / 0.15), inset 0 0 40px -20px hsl(var(--primary) / 0.05)",
+                "0 4px 40px -8px hsl(var(--primary) / 0.12), 0 0 0 1px hsl(var(--primary) / 0.06)",
             }}
           >
             {/* Background gradient */}
@@ -105,35 +105,35 @@ const Contact = () => {
                 </div>
 
                 {/* Terminal message */}
-                <div className="font-mono text-sm bg-background rounded-xl p-5 border border-border">
-                  <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-border">
-                    <div className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber/70" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-accent/70" />
-                    <span className="ml-2 text-xs text-muted-foreground">
+                <div className="font-mono text-sm bg-slate-900 rounded-xl p-5 border border-slate-700 shadow-md">
+                  <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-slate-700">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                    <span className="ml-2 text-xs text-slate-400">
                       message.sh
                     </span>
                   </div>
-                  <div className="space-y-1.5 text-muted-foreground">
+                  <div className="space-y-1.5 text-slate-400">
                     <p>
-                      <span className="text-primary">#!/bin/bash</span>
+                      <span className="text-blue-400">#!/bin/bash</span>
                     </p>
                     <p>
-                      <span className="text-accent">echo</span> "I'm open to"
+                      <span className="text-green-400">echo</span> "I'm open to"
                     </p>
                     <p>
-                      <span className="text-accent">echo</span> "backend roles,"
+                      <span className="text-green-400">echo</span> "backend roles,"
                     </p>
                     <p>
-                      <span className="text-accent">echo</span> "freelance work,"
+                      <span className="text-green-400">echo</span> "freelance work,"
                     </p>
                     <p>
-                      <span className="text-accent">echo</span> "and hard problems."
+                      <span className="text-green-400">echo</span> "and hard problems."
                     </p>
                     <p className="mt-3">
-                      <span className="text-primary">$</span>{" "}
-                      <span className="text-foreground">send_message</span>
-                      <span className="inline-block w-1.5 h-4 bg-primary ml-1 animate-blink align-middle" />
+                      <span className="text-blue-400">$</span>{" "}
+                      <span className="text-slate-100">send_message</span>
+                      <span className="inline-block w-1.5 h-4 bg-blue-400 ml-1 animate-blink align-middle" />
                     </p>
                   </div>
                 </div>

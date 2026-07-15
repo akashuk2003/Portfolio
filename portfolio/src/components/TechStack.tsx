@@ -24,7 +24,7 @@ const TechStack = () => {
 
   return (
     <section id="tech" className="py-28 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/40 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 section-fade pointer-events-none" />
 
       <div className="container relative z-10 px-4">
         <div className="max-w-5xl mx-auto">
@@ -92,7 +92,8 @@ function TechCard({
   return (
     <div
       ref={ref}
-      className="group p-6 rounded-xl bg-card border border-border hover:border-primary/40 hover:glow-primary transition-all duration-300"
+      className="card-glass card-shine group p-6 rounded-xl border border-border/60 hover:border-primary/35 transition-all duration-300"
+      style={{ boxShadow: undefined }}
     >
       <div className="flex items-center gap-3 mb-5">
         <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
@@ -104,7 +105,7 @@ function TechCard({
         {category.items.map((item: string) => (
           <span
             key={item}
-            className="px-2.5 py-1 rounded-md text-xs font-mono bg-secondary text-secondary-foreground border border-border hover:border-primary/40 transition-colors"
+            className="px-2.5 py-1 rounded-md text-xs font-mono bg-secondary/80 text-secondary-foreground border border-border/60 hover:border-primary/40 hover:text-primary transition-colors"
           >
             {item}
           </span>

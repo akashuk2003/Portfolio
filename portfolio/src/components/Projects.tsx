@@ -31,10 +31,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <div
       ref={ref}
-      className="group relative flex flex-col lg:flex-row gap-0 rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/40 transition-colors duration-300"
+      className="card-shine group relative flex flex-col lg:flex-row gap-0 rounded-2xl border border-border/70 bg-card overflow-hidden hover:border-primary/35 transition-colors duration-300 hover:shadow-lg hover:shadow-primary/5"
     >
       {/* Left accent stripe */}
-      <div className="lg:w-1.5 h-1 lg:h-auto bg-gradient-to-b from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
+      <div className="lg:w-1.5 h-1 lg:h-auto bg-gradient-to-b from-primary to-accent opacity-20 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
 
       <div className="flex-1 p-8 md:p-10">
         {/* Header row */}

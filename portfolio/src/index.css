@@ -7,40 +7,40 @@
 @layer base {
   :root {
     /* ── Light Mode Backgrounds ── */
-    --background: 0 0% 100%;
-    --foreground: 222 24% 5%;
+    --background: 210 33% 98%;        /* Soft blue-white, not stark white */
+    --foreground: 222 47% 11%;        /* Rich navy, not pure black */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 24% 5%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 24% 5%;
+    --popover-foreground: 222 47% 11%;
 
     /* ── Light Mode Brand ── */
-    --primary: 210 100% 56%;          /* Electric Blue - keeps brand identity */
+    --primary: 217 91% 52%;           /* Deeper Electric Blue for light bg */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96%;         /* Sky-tinted surface */
+    --secondary-foreground: 222 47% 22%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 95%;
+    --muted-foreground: 215 20% 50%; /* Readable slate */
 
-    --accent: 155 65% 43%;            /* Muted Emerald */
+    --accent: 160 58% 40%;            /* Richer Emerald on light */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     /* ── Light Mode Structure ── */
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 210 100% 56%;
+    --border: 214 32% 88%;            /* Soft slate border */
+    --input: 214 32% 91%;
+    --ring: 217 91% 52%;
     --radius: 0.625rem;
 
     /* ── Extended palette ── */
-    --amber: 38 95% 55%;
-    --surface-raised: 0 0% 98%;
+    --amber: 38 95% 50%;
+    --surface-raised: 210 33% 100%;
   }
 
   .dark {
@@ -119,15 +119,15 @@
 
   /* ── Glows ── */
   .glow-primary {
-    box-shadow: 0 0 40px -12px hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 40px -12px hsl(var(--primary) / 0.4);
   }
 
   .glow-accent {
-    box-shadow: 0 0 40px -12px hsl(var(--accent) / 0.5);
+    box-shadow: 0 0 40px -12px hsl(var(--accent) / 0.4);
   }
 
   .glow-amber {
-    box-shadow: 0 0 40px -12px hsl(var(--amber) / 0.4);
+    box-shadow: 0 0 40px -12px hsl(var(--amber) / 0.35);
   }
 
   /* ── Borders ── */
@@ -138,7 +138,54 @@
 
   /* ── Card interactions ── */
   .card-hover {
-    @apply transition-all duration-300 hover:border-primary/40 hover:glow-primary;
+    @apply transition-all duration-300 hover:border-primary/40;
+  }
+
+  :root .card-hover:hover {
+    box-shadow: 0 8px 32px -8px hsl(var(--primary) / 0.18), 0 2px 8px -2px hsl(var(--primary) / 0.08);
+  }
+
+  .dark .card-hover:hover {
+    box-shadow: 0 0 40px -12px hsl(var(--primary) / 0.5);
+  }
+
+  /* ── Glass card (light mode frosted glass) ── */
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/60;
+    box-shadow: 0 4px 24px -4px hsl(210 40% 60% / 0.10), 0 1px 4px hsl(210 40% 60% / 0.05);
+  }
+
+  .dark .card-glass {
+    @apply bg-card backdrop-blur-sm;
+    box-shadow: none;
+  }
+
+  /* ── Shine sweep on hover (CSS-only) ── */
+  .card-shine {
+    @apply relative overflow-hidden;
+  }
+
+  .card-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      hsl(0 0% 100% / 0.18) 50%,
+      transparent 60%
+    );
+    transform: skewX(-15deg);
+    transition: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-shine:hover::before {
+    animation: shine-sweep 0.55s ease forwards;
   }
 
   /* ── Raised surface ── */
@@ -150,16 +197,44 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* ── Fade-up reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Shine keyframe ── */
+@keyframes shine-sweep {
+  0%   { left: -75%; }
+  100% { left: 125%; }
 }
 
 /* ── Hero mesh gradient background ── */
 .hero-mesh-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, hsl(var(--primary) / 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 70%, hsl(var(--accent) / 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 20% 30%, hsl(var(--primary) / 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, hsl(var(--accent) / 0.08) 0%, transparent 55%),
     radial-gradient(ellipse 50% 40% at 50% 0%, hsl(var(--amber) / 0.06) 0%, transparent 50%),
     hsl(var(--background));
-  animation: mesh-shift 12s ease-in-out infinite alternate;
+  animation: mesh-shift 14s ease-in-out infinite alternate;
+}
+
+/* Light mode: warmer, richer gradient blobs */
+:root .hero-mesh-bg {
+  background:
+    radial-gradient(ellipse 80% 70% at 15% 25%, hsl(217 91% 52% / 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 85% 65%, hsl(160 58% 40% / 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 55% 5%,  hsl(38 95% 50% / 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 60% at 90% 10%, hsl(270 80% 60% / 0.04) 0%, transparent 55%),
+    hsl(var(--background));
 }
 
 @keyframes mesh-shift {
@@ -167,11 +242,54 @@
   100% { background-position: 2% 3%; }
 }
 
+/* ── Dot grid (used in Hero) ── */
+.dot-grid {
+  background-image: radial-gradient(circle, hsl(var(--primary) / 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 40%, transparent 100%);
+}
+
+.dark .dot-grid {
+  background-image: radial-gradient(circle, hsl(var(--border) / 0.6) 1px, transparent 1px);
+}
+
+/* ── Section divider gradient ── */
+.section-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    hsl(var(--card) / 0.5) 30%,
+    hsl(var(--card) / 0.5) 70%,
+    transparent 100%
+  );
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { @apply bg-background; }
-::-webkit-scrollbar-thumb { @apply bg-muted rounded-full; }
+::-webkit-scrollbar-thumb { @apply bg-muted-foreground/20 rounded-full; }
 ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/40; }
 
 /* ── Selection ── */
-::selection { @apply bg-primary/25 text-foreground; }
+::selection { @apply bg-primary/20 text-foreground; }
+
+/* ── Float animation for decorative blobs ── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-18px) scale(1.03); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* ── Pulse ring ── */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.35); }
+  70%  { box-shadow: 0 0 0 10px hsl(var(--primary) / 0); }
+  100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.2s ease-out infinite;
+}

@@ -49,7 +49,7 @@ const About = () => {
 
   return (
     <section id="about" className="py-28 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 section-fade pointer-events-none" />
 
       <div className="container relative z-10 px-4">
         <div className="max-w-5xl mx-auto">
@@ -75,35 +75,35 @@ const About = () => {
               </div>
 
               {/* Terminal block */}
-              <div className="p-5 rounded-xl bg-background border border-border font-mono text-sm">
-                <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-border">
-                  <div className="w-2.5 h-2.5 rounded-full bg-destructive/70" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-amber/70" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-accent/70" />
-                  <span className="ml-2 text-xs text-muted-foreground">
+              <div className="p-5 rounded-xl bg-slate-900 dark:bg-background border border-slate-700 dark:border-border font-mono text-sm shadow-md">
+                <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-slate-700 dark:border-border">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                  <span className="ml-2 text-xs text-slate-400">
                     profile.sh
                   </span>
                 </div>
                 <div className="space-y-2 text-sm">
                   <p>
-                    <span className="text-muted-foreground">$</span>{" "}
-                    <span className="text-primary">whoami</span>
+                    <span className="text-slate-500">$</span>{" "}
+                    <span className="text-blue-400">whoami</span>
                   </p>
-                  <p className="text-muted-foreground pl-3">
+                  <p className="text-slate-300 pl-3">
                     {profile?.whoami}
                   </p>
                   <p className="mt-2">
-                    <span className="text-muted-foreground">$</span>{" "}
-                    <span className="text-primary">location</span>
+                    <span className="text-slate-500">$</span>{" "}
+                    <span className="text-blue-400">location</span>
                   </p>
-                  <p className="text-muted-foreground pl-3">
+                  <p className="text-slate-300 pl-3">
                     {profile?.location}
                   </p>
                   <p className="mt-2">
-                    <span className="text-muted-foreground">$</span>{" "}
-                    <span className="text-primary">interests</span>
+                    <span className="text-slate-500">$</span>{" "}
+                    <span className="text-blue-400">interests</span>
                   </p>
-                  <p className="text-muted-foreground pl-3">
+                  <p className="text-slate-300 pl-3">
                     {profile?.interests}
                   </p>
                 </div>
@@ -115,7 +115,7 @@ const About = () => {
               {stats?.map((stat: Stat) => (
                 <div
                   key={stat.id}
-                  className="p-6 rounded-2xl bg-card border border-border hover:border-primary/40 hover:glow-primary transition-all duration-300 text-center"
+                  className="card-shine p-6 rounded-2xl bg-white dark:bg-card border border-border/70 hover:border-primary/35 hover:shadow-md hover:shadow-primary/8 transition-all duration-300 text-center"
                 >
                   <div className="font-heading font-extrabold text-4xl text-gradient-primary mb-2">
                     {stat.value}
